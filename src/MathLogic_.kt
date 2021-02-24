@@ -27,14 +27,16 @@ data class RationalNumber(val numerator: Int, val denominator: Int) : Serializab
     /**
      * Returns true if the denominator is not equal to 0
      * */
-    inline val isRationalNumber: () -> Boolean get() = { this.denominator != 0 }
+    private val isRationalNumber: Boolean get() = this.denominator != 0
 
     /**
      * Returns the Int result of the sum of the division of the [numerator] by the [denominator]
      * */
-    inline val toRationalNumberResult: () -> Int
-        get() = {
-            if (!isRationalNumber()) throw ArithmeticException("A rational number's denominator cannot be equal to 0")
-            numerator / denominator
-        }
+    private val toRationalNumberResult: Int
+        get() = if (isRationalNumber) numerator / denominator else throw ArithmeticException(
+            "A rational number's denominator cannot be equal to 0"
+        )
+
+    val printOutRationalResult: Unit get() = println(toRationalNumberResult)
+
 }

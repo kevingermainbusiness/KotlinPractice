@@ -1,5 +1,3 @@
-fun joinOptions(options: Collection<String>) = options.joinToString()
-
 /**
  * I feel a sense of pride for having created this function even though it's after looking into the implementation
  * The fact that I tried doing it my way, gives me a sense of achievement
@@ -14,15 +12,17 @@ fun Collection<String>.joinToString(prefix: String = "[", separator: String = ",
     return items + postfix
 }
 
+val Collection<String>.stringifyOptions: String get() = this.joinToString()
+
 /** Thought of the it % 2 but had to search on another project for the == 0 rest of the algorithm */
-fun containsEven(collection: Collection<Int>): Boolean = collection.any { it % 2 == 0 }
+val Collection<Int>.containsEven: Boolean get() = this.any { it % 2 == 0 }
 
 
 fun main() {
     // using own toString method && testing the any function on a collection
     val options = mutableListOf("Fast", "Worship singing", "Pray", "Coding", "Learning")
     val numbers = mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12)
-    if (containsEven(numbers)) println(joinOptions(options))
+    if (numbers.containsEven) println(options.stringifyOptions)
 
     // send mail
     val client = Client(PersonalInfo("kevingermainbusiness@gmail.com"))
@@ -32,8 +32,6 @@ fun main() {
     println("SmartCast_ : " + eval(Sum(Num(3), Num(6))))
 
     // Determine if a division returns a rational number
-    val division = RationalNumber(2, 4)
-    if (division.isRationalNumber()) {
-        println("Rational Number: " + division.toRationalNumberResult())
-    }
+    val division = RationalNumber(8, 0)
+    division.printOutRationalResult
 }
