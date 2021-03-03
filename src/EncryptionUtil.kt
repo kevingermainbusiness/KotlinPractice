@@ -1,53 +1,65 @@
-/**
- * WARNING: DOCUMENTATION MERITS REVISION.
- * @author Kevin Germain
- * */
-// Second version (inside of an object)
-object StringCryptoProtocol : CryptographicInterface.SimpleEncryption<String> {
+import interfaces.CryptographicInterface
+import java.io.Serializable
+import java.nio.file.Files
+import java.nio.file.Paths
 
-    private var individualChars: Char = '\u0000'
-    private var mDataToCharArray = charArrayOf()
-    var mDataIndividualCharacters = ""
+class ByteArrayCryptoProtocol : CryptographicInterface.AdvancedSymmetricEncryption<ByteArray> {
 
-    override val specialKey: Int
-        get() = 6
+    override val specialKey: Int get() = 1
 
-    /**
-     * This algorithm encrypts a text by adding the [specialKey]th character
-     * from the encoding that it belongs to, after each characters from the [mData] String.
-     * How it does it?
-     *
-     * It takes the [mData] text, decomposes each characters into a [CharArray] where
-     * each element in the [mData] String is considered a [Char].
-     *
-     * [mDataToCharArray] now containing each characters from the [mData] text,
-     * the function performs a loop through the [mDataToCharArray]
-     * for each loop that occurs, each characters is replaced by the [specialKey]th character
-     * from the encoding that it belongs to, for example UTF-16; then [mDataIndividualCharacters]
-     * gets every character from [individualChars]
-     * */
-    override fun encrypt(mData: String) {
-        mDataToCharArray = mData.toCharArray()
-        for (charInArray in mDataToCharArray) {
-            individualChars = charInArray
-            individualChars += specialKey
-            mDataIndividualCharacters += individualChars
-            print(individualChars)
+    override var lastEncryptedData: ByteArray = byteArrayOf()
+
+    override fun encrypt(mData: ByteArray): ByteArray {
+        val enc = ByteArray(mData.size)
+        for (i in mData.indices) {
+            enc[i] = (if (i % 2 == 0) mData[i] + specialKey else mData[i] - specialKey).toByte()
+            lastEncryptedData = enc
         }
+        return enc
     }
 
-    override fun decrypt() {
-        newLine
-        val allTextCharacters = mDataIndividualCharacters.toCharArray()
-        for (c in allTextCharacters) {
-            individualChars = c
-            individualChars -= specialKey
-            print(individualChars)
+    override fun decrypt(encryptedData: ByteArray): ByteArray {
+        val dec = ByteArray(encryptedData.size)
+        for (i in encryptedData.indices) {
+            dec[i] = (if (i % 2 == 0) encryptedData[i] - specialKey else encryptedData[i] + specialKey).toByte()
         }
+        return dec
+    }
+
+    override fun decryptLastEncryptedData(): ByteArray {
+        val dec = ByteArray(lastEncryptedData.size)
+        for (i in lastEncryptedData.indices) {
+            dec[i] = (if (i % 2 == 0) lastEncryptedData[i] - specialKey else lastEncryptedData[i] + specialKey).toByte()
+        }
+        return dec
     }
 }
 
 fun main() {
-    StringCryptoProtocol.encrypt("Beniswa Letènèl, BonDye Gran e Puissant vre wi")
-    StringCryptoProtocol.decrypt()
+    val byteArrayCryptoProtocol = ByteArrayCryptoProtocol()
+    val actualData = "Simple data to encrypt - (Insert any data here to encrypt)"
+    val encryptedData = String(byteArrayCryptoProtocol.encrypt(actualData.toByteArray()))
+    val decryptedData = String(byteArrayCryptoProtocol.decryptLastEncryptedData())
+
+    println("Original: $actualData")
+    println("Encrypted: $encryptedData")
+    println("Decrypted: $decryptedData")
+    byteArrayCryptoProtocol.newLine
+
+    /**
+     * UNCOMMENT THIS SECTION IF YOU WANT TO READ A TEXT FILE, THEN ENCRYPT THE TEXT FILE,
+     * SAVE THE ENCRYPTED TEXT FILE, DECRYPT SAID TEXT FILE, THEN SAVE THE DECRYPTED TEXT FILE TO THIS DIRECTORY.
+     * I ALREADY CREATED A TEXT FILE IN THIS DIRECTORY CALLED "data1.txt"
+     * */
+//    // Referencing the file data1.txt in the src directory
+//    val data1: ByteArray = Files.readAllBytes(
+//        Paths.get(System.getProperty("user.dir") + "/src/files/data1.txt")
+//    )
+//    // encrypting this file
+//    val data2 = byteArrayCryptoProtocol.encrypt(data1)
+//    // decrypting the encrypted file
+//    val data3 = byteArrayCryptoProtocol.decryptLastEncryptedData()
+//    // creating files for the encrypted & decrypted files
+//    Files.write(Paths.get(System.getProperty("user.dir") + "/src/files/data2.txt"), data2)
+//    Files.write(Paths.get(System.getProperty("user.dir") + "/src/files/data3.txt"), data3)
 }
