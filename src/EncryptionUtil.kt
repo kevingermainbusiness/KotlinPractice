@@ -1,75 +1,53 @@
 /**
+ * WARNING: DOCUMENTATION MERITS REVISION.
  * @author Kevin Germain
  * */
-fun String.encryptText() {
-
-    val allTextCharacters = this.toCharArray()
-    var eachCharacters: Char
-    var charactersList = ""
-
-    for (c in allTextCharacters) {
-        eachCharacters = c
-        eachCharacters += DEFAULT_KEY
-        print(eachCharacters)
-        charactersList += eachCharacters
-    }
-    LAST_ENCRYPTED_TEXT = charactersList
-}
-
-fun String.decryptText() {
-    val allTextCharacters = this.toCharArray()
-    var eachCharacters: Char
-    var charactersList = ""
-
-    for (c in allTextCharacters) {
-        eachCharacters = c
-        eachCharacters -= DEFAULT_KEY
-        print(eachCharacters)
-        charactersList += eachCharacters
-    }
-}
-
 // Second version (inside of an object)
-object SimpleTextCryptoMethod {
-    private var individualCharacters: Char = '\u0000'
-    var fullTextOfIndividualCharacters = ""
+object StringCryptoProtocol : CryptographicInterface.SimpleEncryption<String> {
+
+    private var individualChars: Char = '\u0000'
+    private var mDataToCharArray = charArrayOf()
+    var mDataIndividualCharacters = ""
+
+    override val specialKey: Int
+        get() = 6
 
     /**
-     * This algorithm encrypts a text by adding the [DEFAULT_KEY]th character
-     * from the encoding that it belongs to, after each characters from the [message] String.
+     * This algorithm encrypts a text by adding the [specialKey]th character
+     * from the encoding that it belongs to, after each characters from the [mData] String.
      * How it does it?
      *
-     * It takes the [message] text, decomposes each characters into a [CharArray] where
-     * each element in the [message] String is considered a [Char].
+     * It takes the [mData] text, decomposes each characters into a [CharArray] where
+     * each element in the [mData] String is considered a [Char].
      *
-     * [messageTextToCharArray] now containing each characters from the [message] text,
-     * the function performs a loop through the [messageTextToCharArray]
-     * for each loop that occurs, each characters is replaced by the [DEFAULT_KEY]th character
-     * from the encoding that it belongs to, for example UTF-16; then [fullTextOfIndividualCharacters]
-     * gets every character from [individualCharacters]
+     * [mDataToCharArray] now containing each characters from the [mData] text,
+     * the function performs a loop through the [mDataToCharArray]
+     * for each loop that occurs, each characters is replaced by the [specialKey]th character
+     * from the encoding that it belongs to, for example UTF-16; then [mDataIndividualCharacters]
+     * gets every character from [individualChars]
      * */
-    fun encrypt(message: String) {
-        val messageTextToCharArray = message.toCharArray()
-        for (c in messageTextToCharArray) {
-            individualCharacters = c
-            individualCharacters += DEFAULT_KEY
-            fullTextOfIndividualCharacters += individualCharacters
-            print(individualCharacters)
+    override fun encrypt(mData: String) {
+        mDataToCharArray = mData.toCharArray()
+        for (charInArray in mDataToCharArray) {
+            individualChars = charInArray
+            individualChars += specialKey
+            mDataIndividualCharacters += individualChars
+            print(individualChars)
         }
     }
 
-    fun decrypt() {
-        print("\n")
-        val allTextCharacters = fullTextOfIndividualCharacters.toCharArray()
+    override fun decrypt() {
+        newLine
+        val allTextCharacters = mDataIndividualCharacters.toCharArray()
         for (c in allTextCharacters) {
-            individualCharacters = c
-            individualCharacters -= DEFAULT_KEY
-            print(individualCharacters)
+            individualChars = c
+            individualChars -= specialKey
+            print(individualChars)
         }
     }
-
-    val addLineBreak: Unit get() = println("\n")
 }
 
-const val DEFAULT_KEY: Int = 6
-var LAST_ENCRYPTED_TEXT: String = ""
+fun main() {
+    StringCryptoProtocol.encrypt("Beniswa Letènèl, BonDye Gran e Puissant vre wi")
+    StringCryptoProtocol.decrypt()
+}
