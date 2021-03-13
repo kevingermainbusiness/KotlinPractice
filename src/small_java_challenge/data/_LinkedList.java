@@ -1,4 +1,4 @@
-package small_challenge.data;
+package small_java_challenge.data;
 
 /**
  * Custom LinkedList recreated by me

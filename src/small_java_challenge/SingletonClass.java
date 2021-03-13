@@ -1,4 +1,4 @@
-package small_challenge;
+package small_java_challenge;
 
 public class SingletonClass {
 

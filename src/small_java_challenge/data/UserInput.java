@@ -1,4 +1,4 @@
-package small_challenge.data;
+package small_java_challenge.data;
 
 /**
  * Created to track each input by a user through a Scanner object

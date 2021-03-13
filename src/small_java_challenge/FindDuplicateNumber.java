@@ -1,6 +1,6 @@
-package small_challenge;
+package small_java_challenge;
 
-import small_challenge.data.UserInput;
+import small_java_challenge.data.UserInput;
 
 import java.util.*;
 

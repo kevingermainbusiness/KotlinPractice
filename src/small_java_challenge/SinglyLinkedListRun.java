@@ -1,7 +1,7 @@
-package small_challenge;
+package small_java_challenge;
 
 import interfaces.NotFullyUnderstoodYet;
-import small_challenge.data.SinglyLinkedList;
+import small_java_challenge.data.SinglyLinkedList;
 
 @NotFullyUnderstoodYet(reason = "I don't yet understand the way the SinglyLinkedList class is implemented")
 public class SinglyLinkedListRun {

@@ -1,7 +1,7 @@
-package small_challenge;
+package small_java_challenge;
 
 import interfaces.NotFullyUnderstoodYet;
-import small_challenge.data._LinkedList;
+import small_java_challenge.data._LinkedList;
 
 /**
  * Java program to find middle element of linked list in one pass.

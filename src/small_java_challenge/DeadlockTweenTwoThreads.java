@@ -1,4 +1,4 @@
-package small_challenge;
+package small_java_challenge;
 
 /**
  * Deadlock describes a situation where two or more threads are blocked forever, waiting for each other.

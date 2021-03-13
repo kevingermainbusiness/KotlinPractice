@@ -1,4 +1,4 @@
-package small_challenge.data;
+package small_java_challenge.data;
 
 import interfaces.NotFullyUnderstoodYet;
 

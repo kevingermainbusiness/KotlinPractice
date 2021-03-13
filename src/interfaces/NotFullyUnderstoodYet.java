@@ -1,7 +1,7 @@
 package interfaces;
 
 /**
- * This interface has the sole purpose of reminding me that I never fully understood a concept
+ * This annotation has the sole purpose of reminding me that I never fully understood a concept
  * after coming back to a project since a long time
  * so that I can just go straight up to internet searching
  * for the concepts I might still not understand.
