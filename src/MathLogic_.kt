@@ -18,7 +18,7 @@ import java.lang.ArithmeticException
  *
  * @author Kevin Germain
  * */
-data class RationalNumber(val numerator: Int, val denominator: Int) : Serializable {
+class RationalNumber(private val numerator: Int, private val denominator: Int) : Serializable {
     /**
      * Returns string representation of the [RationalNumber] including its [numerator] and [denominator] values.
      */

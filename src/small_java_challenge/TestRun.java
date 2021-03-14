@@ -1,10 +1,8 @@
 package small_java_challenge;
 
-
-import small_java_challenge.data.CustomArrayList;
 import small_java_challenge.data.CustomHashMap2;
-
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class TestRun {
 
@@ -27,7 +25,5 @@ public class TestRun {
         System.out.println("Entries after removal of key D: " + mapEntriesAfterRemoval);
         System.out.println(customHashMap2.getMapSize());
 
-        CustomArrayList<String> customArrayList = new CustomArrayList<>();
-        customArrayList.add("Kevin");
     }
 }

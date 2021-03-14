@@ -18,10 +18,10 @@ public class CustomHashMap2<K, V> {
 
     private Entry<K, V>[] entriesTable;
 
-    private int mapSize = 1; // arbitrary size I give by default
+    private int capacity = 1; // arbitrary size I give by default
 
     public CustomHashMap2() {
-        this.entriesTable = new Entry[mapSize];
+        this.entriesTable = new Entry[capacity];
     }
 
     public Entry<K, V>[] getEntriesTable() {
@@ -38,7 +38,7 @@ public class CustomHashMap2<K, V> {
     public void put(K key, V value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
-        verifyIfMapSizeIncreaseIsNeeded();
+        verifyIfCapacityIncreaseIsNeeded();
         int entryKeyInTable = hashKey(key);
         Entry<K, V> entryToPut = entriesTable[entryKeyInTable];
         if (entryToPut == null) {
@@ -100,24 +100,25 @@ public class CustomHashMap2<K, V> {
         }
     }
 
-    public int getMapSize() {
-        return size();
+    private int capacity() {
+        return this.capacity;
     }
 
-    private Long getEntriesTableSize() {
+    public int getMapSize() {
+        return capacity();
+    }
+
+    private Long entriesTableCapacity() {
         return Arrays.stream(entriesTable).count();
     }
 
-    private void verifyIfMapSizeIncreaseIsNeeded() {
-        if (getEntriesTableSize() == 1) {
-            mapSize = mapSize + 1;
-            entriesTable = new Entry[mapSize];
+    private void verifyIfCapacityIncreaseIsNeeded() {
+        if (entriesTableCapacity() == 1) {
+            capacity = capacity + 1;
+            entriesTable = new Entry[capacity];
         }
     }
 
-    private int size() {
-        return this.mapSize;
-    }
 
     /**
      * In order to guarantee the uniqueness of each key
@@ -126,7 +127,7 @@ public class CustomHashMap2<K, V> {
      * @return Name Of the Key
      */
     private int hashKey(K key) {
-        return key.hashCode() % size();
+        return key.hashCode() % capacity();
     }
 
     // Made protected in case I want to implement an Iterable later

@@ -18,14 +18,12 @@ package interfaces
  * */
 interface CryptographicInterface {
 
-    interface Base {
 
-        val specialKey: Int
+    val specialKey: Int
 
-        val newLine: Unit get() = println()
-    }
+    val newLine: Unit get() = println()
 
-    interface SimpleEncryption<A, B> : Base {
+    interface SimpleEncryption<A, B> : CryptographicInterface {
 
         fun encrypt(dataBeforeEncryption: A)
 
@@ -34,7 +32,7 @@ interface CryptographicInterface {
         fun decrypt()
     }
 
-    interface AdvancedSymmetricEncryption<T> : Base {
+    interface AdvancedSymmetricEncryption<T> : CryptographicInterface {
 
         fun encrypt(mData: T): T
 
