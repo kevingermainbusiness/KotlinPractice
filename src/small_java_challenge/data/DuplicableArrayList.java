@@ -6,7 +6,11 @@ import java.util.HashSet;
 
 /**
  * This custom ArrayList should be able to allow duplicates or not allow duplicates
- * Created by Kevin Germain
+ * <p>
+ * If you set [allowDuplicates] to true, you can only get data by colling for HashSet.contains(element)
+ * If not you can use the common get(int index) from ArrayList
+ *
+ * @author Kevin Germain
  */
 public class DuplicableArrayList<E> extends ArrayList<E> {
 
@@ -22,12 +26,10 @@ public class DuplicableArrayList<E> extends ArrayList<E> {
 
     @Override
     public boolean add(E e) {
-        // if the user don't allow duplicates & trying to add e to the hashSet returns false
-        // else if duplicates are allowed then even if there is a duplicate, add it anyways
         if (!allowDuplicates && !mHashSet.add(e)) {
-            throw new IllegalArgumentException("No duplicates are allowed to be added");
-        } else if (allowDuplicates && !mHashSet.add(e)) {
-            return super.add(e);
+            return false;
+        } else if (!allowDuplicates && mHashSet.add(e)) {
+            return mHashSet.add(e);
         } else return super.add(e);
     }
 }

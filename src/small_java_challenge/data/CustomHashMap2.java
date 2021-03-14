@@ -69,23 +69,23 @@ public class CustomHashMap2<K, V> {
     }
 
     /**
-     * Totally my idea
+     * @return the value of the key passed
      */
-    public V get(K key) {
+    public V get(K key) throws NullPointerException {
         Objects.requireNonNull(key);
         int entryKeyInTable = hashKey(key);
         Entry<K, V> entryToGet = entriesTable[entryKeyInTable];
         if (entryToGet == null) {
-            return null;
+            throw new NullPointerException("The Object you are trying to remove doesn't exist");
         } else {
             return entryToGet.getValue();
         }
     }
 
     /**
-     * Totally my idea
+     * @return the deleted Entry
      */
-    public Entry<K, V> remove(K key) {
+    public Entry<K, V> remove(K key) throws NullPointerException {
         Objects.requireNonNull(key);
         int entryKeyInTable = hashKey(key);
         Entry<K, V> entryToRemove = entriesTable[entryKeyInTable];

@@ -1,6 +1,10 @@
 package small_java_challenge;
 
+import small_java_challenge.data.CustomArrayList;
 import small_java_challenge.data.CustomHashMap2;
+import small_java_challenge.data.DuplicableArrayList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestRun {
