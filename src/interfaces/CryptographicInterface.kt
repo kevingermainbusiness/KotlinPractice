@@ -18,7 +18,6 @@ package interfaces
  * */
 interface CryptographicInterface {
 
-
     val specialKey: Int
 
     val newLine: Unit get() = println()

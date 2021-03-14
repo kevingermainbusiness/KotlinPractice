@@ -1,7 +1,4 @@
 import interfaces.CryptographicInterface
-import java.io.Serializable
-import java.nio.file.Files
-import java.nio.file.Paths
 
 class ByteArrayCryptoProtocol : CryptographicInterface.AdvancedSymmetricEncryption<ByteArray> {
 
